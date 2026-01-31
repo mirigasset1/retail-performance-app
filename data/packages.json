@@ -1,0 +1,28 @@
+{
+  "name": "retail-performance-dashboard",
+  "version": "1.0.0",
+  "description": "Retail Performance Dashboard - Track KPIs for multiple stores",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000",
+    "dev": "npx http-server -p 8000 -o",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "retail",
+    "dashboard",
+    "kpi",
+    "analytics",
+    "performance"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/retail-performance-dashboard.git"
+  }
+}

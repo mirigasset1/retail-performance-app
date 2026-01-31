@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Performance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="assets/primark-logo.svg" alt="Primark Logo" class="primark-logo">
+                </div>
+                <div class="header-text">
+                    <h1>📊 Retail Performance Dashboard</h1>
+                    <p class="subtitle">Análisis de KPIs en tiempo real</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <label for="storeFilter">Filtrar por tienda:</label>
+            <select id="storeFilter">
+                <option value="all">Todas las tiendas</option>
+            </select>
+            <button id="exportBtn" class="btn-secondary">📥 Exportar CSV</button>
+        </section>
+
+        <!-- KPI Cards -->
+        <section class="kpi-grid" id="kpiCards">
+            <!-- Cards will be injected by JavaScript -->
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-container">
+            <div class="chart-card">
+                <h3>RAS vs S&D por Tienda</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Budget vs Last Year (LY)</h3>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Stores Table -->
+        <section class="table-section">
+            <h2>Resumen de Tiendas</h2>
+            <div class="table-wrapper">
+                <table id="storesTable">
+                    <thead>
+                        <tr>
+                            <th>Tienda</th>
+                            <th>Ventas vs Presupuesto</th>
+                            <th>Tell Primark (%)</th>
+                            <th>Reusable Bags</th>
+                            <th>RAS (%)</th>
+                            <th>S&D (%)</th>
+                            <th>SOH</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storesTableBody">
+                        <!-- Rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- AI Recommendations -->
+        <section class="ai-section">
+            <button id="aiRecommendBtn" class="btn-primary">🤖 Ver Recomendaciones AI</button>
+            <div id="aiResults" class="ai-results hidden"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Retail Performance Dashboard | Powered by AI</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/kpis.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

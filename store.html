@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Details - Retail Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="assets/primark-logo.svg" alt="Primark Logo" class="primark-logo">
+                </div>
+                <div class="header-text">
+                    <a href="index.html" class="back-link">← Volver al Dashboard</a>
+                    <h1 id="storeName">Tienda</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Store Summary Cards -->
+        <section class="kpi-grid" id="storeKpiCards">
+            <!-- Cards injected by JS -->
+        </section>
+
+        <!-- Daily Performance -->
+        <section class="daily-section">
+            <h2>Rendimiento Diario</h2>
+            <div class="daily-grid">
+                <div class="daily-card">
+                    <h3>Ventas Hoy</h3>
+                    <p class="daily-value" id="dailySales">€0</p>
+                    <span class="daily-label">vs presupuesto diario</span>
+                </div>
+                <div class="daily-card">
+                    <h3>Transacciones</h3>
+                    <p class="daily-value" id="dailyTransactions">0</p>
+                    <span class="daily-label">transacciones hoy</span>
+                </div>
+                <div class="daily-card">
+                    <h3>UPT</h3>
+                    <p class="daily-value" id="dailyUPT">0.0</p>
+                    <span class="daily-label">unidades por transacción</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="charts-container">
+            <div class="chart-card">
+                <h3>KPIs de la Tienda</h3>
+                <canvas id="storeBarChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Ventas - Últimos 7 Días</h3>
+                <canvas id="storeTrendChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Detailed Metrics Table -->
+        <section class="table-section">
+            <h2>Métricas Detalladas</h2>
+            <div class="metrics-table">
+                <table>
+                    <tbody id="metricsTableBody">
+                        <!-- Rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- AI Recommendations for this store -->
+        <section class="ai-section">
+            <button id="aiStoreRecommendBtn" class="btn-primary">🤖 Recomendaciones para esta Tienda</button>
+            <div id="aiStoreResults" class="ai-results hidden"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Retail Performance Dashboard</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/kpis.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/ai.js"></script>
+    <script>
+        // Store detail page logic
+        const urlParams = new URLSearchParams(window.location.search);
+        const storeName = urlParams.get('store');
+        
+        if (!storeName) {
+            window.location.href = 'index.html';
+        }
+
+        const store = storesData.find(s => s.name === storeName);
+        
+        if (!store) {
+            window.location.href = 'index.html';
+        }
+
+        // Set store name
+        document.getElementById('storeName').textContent = store.name;
+
+        // Calculate KPIs
+        const kpis = calculateKPIs(store);
+
+        // Render KPI Cards
+        const storeKpiCards = document.getElementById('storeKpiCards');
+        storeKpiCards.innerHTML = `
+            <div class="kpi-card">
+                <h3>Tell Primark</h3>
+                <p class="kpi-value ${store.tell_primark >= 80 ? 'good' : 'warning'}">${store.tell_primark}%</p>
+                <span class="kpi-label">Satisfacción del cliente</span>
+            </div>
+            <div class="kpi-card">
+                <h3>Reusable Bags</h3>
+                <p class="kpi-value">${store.reusable_bags}</p>
+                <span class="kpi-label">Bolsas reutilizables vendidas</span>
+            </div>
+            <div class="kpi-card">
+                <h3>RAS</h3>
+                <p class="kpi-value ${store.ras <= 5 ? 'good' : 'warning'}">${store.ras}%</p>
+                <span class="kpi-label">Rate of Sale</span>
+            </div>
+            <div class="kpi-card">
+                <h3>S&D</h3>
+                <p class="kpi-value ${store.s_and_d <= 5 ? 'good' : 'warning'}">${store.s_and_d}%</p>
+                <span class="kpi-label">Soiled & Damaged</span>
+            </div>
+            <div class="kpi-card">
+                <h3>SOH</h3>
+                <p class="kpi-value">${store.soh}</p>
+                <span class="kpi-label">Stock disponible</span>
+            </div>
+            <div class="kpi-card">
+                <h3>NOOS</h3>
+                <p class="kpi-value">${store.store_vs_depot}%</p>
+                <span class="kpi-label">Store vs Depot</span>
+            </div>
+        `;
+
+        // Daily performance (simulated)
+        const dailyBudget = Math.round(store.sales.budget / 30);
+        const dailySales = Math.round(dailyBudget * (0.8 + Math.random() * 0.4));
+        const dailyTransactions = Math.round(dailySales / 45);
+        const dailyUPT = (dailySales / dailyTransactions / 15).toFixed(1);
+
+        document.getElementById('dailySales').textContent = `€${dailySales.toLocaleString()}`;
+        document.getElementById('dailyTransactions').textContent = dailyTransactions.toLocaleString();
+        document.getElementById('dailyUPT').textContent = dailyUPT;
+
+        // Render store bar chart
+        renderStoreBarChart(store);
+
+        // Render trend chart (last 7 days simulated)
+        renderStoreTrendChart(store);
+
+        // Metrics table
+        const metricsTableBody = document.getElementById('metricsTableBody');
+        metricsTableBody.innerHTML = `
+            <tr><td><strong>Presupuesto Mensual</strong></td><td>€${store.sales.budget.toLocaleString()}</td></tr>
+            <tr><td><strong>Ventas Año Pasado</strong></td><td>€${store.sales.last_year.toLocaleString()}</td></tr>
+            <tr><td><strong>Crecimiento</strong></td><td class="${kpis.growth >= 0 ? 'good' : 'bad'}">${kpis.growth >= 0 ? '+' : ''}${kpis.growth}%</td></tr>
+            <tr><td><strong>Tell Primark</strong></td><td>${store.tell_primark}%</td></tr>
+            <tr><td><strong>Bolsas Reutilizables</strong></td><td>${store.reusable_bags} unidades</td></tr>
+            <tr><td><strong>RAS</strong></td><td>${store.ras}%</td></tr>
+            <tr><td><strong>Soiled & Damaged</strong></td><td>${store.s_and_d}%</td></tr>
+            <tr><td><strong>Stock (SOH)</strong></td><td>${store.soh} unidades</td></tr>
+            <tr><td><strong>Store vs Depot (NOOS)</strong></td><td>${store.store_vs_depot}%</td></tr>
+            <tr><td><strong>SCO Usage</strong></td><td>${Math.round(40 + Math.random() * 30)}%</td></tr>
+        `;
+
+        // AI Recommendations for store
+        document.getElementById('aiStoreRecommendBtn').addEventListener('click', () => {
+            generateStoreAIRecommendations(store);
+        });
+    </script>
+</body>
+</html>

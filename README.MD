@@ -237,3 +237,6 @@ Para preguntas o problemas, abre un issue en GitHub.
 ---
 
 **Desarrollado con ❤️ para equipos retail**# retail-performance-app
+# retail-performance-app
+**👉 [Ver Dashboard en Vivo](https://arearetailperformance.netlify.app)**
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ws9m7hdh57@privaterelay.appleid.com/deploy-status)]...

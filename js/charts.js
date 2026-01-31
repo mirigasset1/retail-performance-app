@@ -30,16 +30,18 @@ function renderBarChart(stores) {
                 {
                     label: 'RAS (%)',
                     data: rasData,
-                    backgroundColor: 'rgba(255, 136, 0, 0.7)',
-                    borderColor: 'rgba(255, 136, 0, 1)',
-                    borderWidth: 2
+                    backgroundColor: 'rgba(0, 164, 206, 0.8)',
+                    borderColor: 'rgba(0, 164, 206, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
                 },
                 {
                     label: 'S&D (%)',
                     data: sdData,
-                    backgroundColor: 'rgba(255, 68, 68, 0.7)',
-                    borderColor: 'rgba(255, 68, 68, 1)',
-                    borderWidth: 2
+                    backgroundColor: 'rgba(255, 136, 0, 0.8)',
+                    borderColor: 'rgba(255, 136, 0, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
                 }
             ]
         },
@@ -49,11 +51,31 @@ function renderBarChart(stores) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 13,
+                            weight: '600'
+                        },
+                        padding: 15
+                    }
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'IBM Plex Sans',
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        family: 'IBM Plex Sans',
+                        size: 13
+                    },
+                    padding: 12,
+                    borderRadius: 8,
                     callbacks: {
                         afterLabel: function(context) {
                             const datasetLabel = context.dataset.label;
@@ -72,9 +94,27 @@ function renderBarChart(stores) {
                 y: {
                     beginAtZero: true,
                     max: 12,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
                     ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 12
+                        },
                         callback: function(value) {
                             return value + '%';
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 11
                         }
                     }
                 }
@@ -108,24 +148,36 @@ function renderLineChart(stores) {
                 {
                     label: 'Budget 2026',
                     data: budgetData,
-                    borderColor: 'rgba(0, 112, 243, 1)',
-                    backgroundColor: 'rgba(0, 112, 243, 0.1)',
+                    borderColor: '#00a4ce',
+                    backgroundColor: 'rgba(0, 164, 206, 0.1)',
                     borderWidth: 3,
                     tension: 0.4,
                     fill: true,
-                    pointRadius: 5,
-                    pointHoverRadius: 7
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#00a4ce',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverBackgroundColor: '#008fb5',
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 3
                 },
                 {
                     label: 'Last Year (LY)',
                     data: lastYearData,
-                    borderColor: 'rgba(255, 136, 0, 1)',
+                    borderColor: '#ff8800',
                     backgroundColor: 'rgba(255, 136, 0, 0.1)',
                     borderWidth: 3,
                     tension: 0.4,
                     fill: true,
-                    pointRadius: 5,
-                    pointHoverRadius: 7
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#ff8800',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverBackgroundColor: '#e67700',
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 3
                 }
             ]
         },
@@ -135,11 +187,33 @@ function renderLineChart(stores) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 13,
+                            weight: '600'
+                        },
+                        padding: 15,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'IBM Plex Sans',
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        family: 'IBM Plex Sans',
+                        size: 13
+                    },
+                    padding: 12,
+                    borderRadius: 8,
                     callbacks: {
                         label: function(context) {
                             const label = context.dataset.label || '';
@@ -160,9 +234,27 @@ function renderLineChart(stores) {
             scales: {
                 y: {
                     beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
                     ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 12
+                        },
                         callback: function(value) {
                             return '€' + (value / 1000).toFixed(0) + 'k';
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 11
                         }
                     }
                 }
@@ -193,10 +285,10 @@ function renderStoreBarChart(store) {
     ];
     
     const backgroundColors = [
-        store.tell_primark >= 80 ? 'rgba(0, 200, 81, 0.7)' : 'rgba(255, 136, 0, 0.7)',
-        store.ras <= 5 ? 'rgba(0, 200, 81, 0.7)' : 'rgba(255, 136, 0, 0.7)',
-        store.s_and_d <= 5 ? 'rgba(0, 200, 81, 0.7)' : 'rgba(255, 136, 0, 0.7)',
-        store.store_vs_depot >= 50 ? 'rgba(0, 200, 81, 0.7)' : 'rgba(255, 136, 0, 0.7)'
+        store.tell_primark >= 80 ? 'rgba(0, 200, 81, 0.8)' : 'rgba(255, 136, 0, 0.8)',
+        store.ras <= 5 ? 'rgba(0, 200, 81, 0.8)' : 'rgba(255, 136, 0, 0.8)',
+        store.s_and_d <= 5 ? 'rgba(0, 200, 81, 0.8)' : 'rgba(255, 136, 0, 0.8)',
+        store.store_vs_depot >= 50 ? 'rgba(0, 200, 81, 0.8)' : 'rgba(255, 136, 0, 0.8)'
     ];
     
     storeBarChartInstance = new Chart(ctx, {
@@ -207,8 +299,9 @@ function renderStoreBarChart(store) {
                 label: 'KPI Value (%)',
                 data: data,
                 backgroundColor: backgroundColors,
-                borderColor: backgroundColors.map(c => c.replace('0.7', '1')),
-                borderWidth: 2
+                borderColor: backgroundColors.map(c => c.replace('0.8', '1')),
+                borderWidth: 2,
+                borderRadius: 8
             }]
         },
         options: {
@@ -219,6 +312,18 @@ function renderStoreBarChart(store) {
                     display: false
                 },
                 tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'IBM Plex Sans',
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        family: 'IBM Plex Sans',
+                        size: 13
+                    },
+                    padding: 12,
+                    borderRadius: 8,
                     callbacks: {
                         label: function(context) {
                             return context.parsed.y + '%';
@@ -229,7 +334,27 @@ function renderStoreBarChart(store) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 12
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 11
+                        }
+                    }
                 }
             }
         }
@@ -274,21 +399,27 @@ function renderStoreTrendChart(store) {
                 {
                     label: 'Ventas Diarias',
                     data: salesData,
-                    borderColor: 'rgba(0, 112, 243, 1)',
-                    backgroundColor: 'rgba(0, 112, 243, 0.1)',
+                    borderColor: '#00a4ce',
+                    backgroundColor: 'rgba(0, 164, 206, 0.1)',
                     borderWidth: 3,
                     tension: 0.4,
-                    fill: true
+                    fill: true,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: '#00a4ce',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
                 },
                 {
                     label: 'Presupuesto Diario',
                     data: budgetData,
-                    borderColor: 'rgba(255, 136, 0, 1)',
+                    borderColor: '#ff8800',
                     backgroundColor: 'rgba(255, 136, 0, 0.1)',
                     borderWidth: 2,
                     borderDash: [5, 5],
                     tension: 0,
-                    fill: false
+                    fill: false,
+                    pointRadius: 0
                 }
             ]
         },
@@ -298,11 +429,32 @@ function renderStoreTrendChart(store) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 13,
+                            weight: '600'
+                        },
+                        padding: 15,
+                        usePointStyle: true
+                    }
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: {
+                        family: 'IBM Plex Sans',
+                        size: 14,
+                        weight: '600'
+                    },
+                    bodyFont: {
+                        family: 'IBM Plex Sans',
+                        size: 13
+                    },
+                    padding: 12,
+                    borderRadius: 8,
                     callbacks: {
                         label: function(context) {
                             return context.dataset.label + ': €' + context.parsed.y.toLocaleString();
@@ -313,9 +465,27 @@ function renderStoreTrendChart(store) {
             scales: {
                 y: {
                     beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
                     ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 12
+                        },
                         callback: function(value) {
                             return '€' + value.toLocaleString();
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: 'IBM Plex Sans',
+                            size: 11
                         }
                     }
                 }

@@ -15,7 +15,7 @@
     "analytics",
     "performance"
   ],
-  "author": "Your Name",
+  "author": "Miranda Gasset Martí",
   "license": "MIT",
   "devDependencies": {
     "http-server": "^14.1.1"
@@ -23,6 +23,6 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/retail-performance-dashboard.git"
+    "url": "https://github.com/Mirigasset1/retail-performance-dashboard.git"
   }
 }

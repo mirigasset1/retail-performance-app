@@ -6,7 +6,8 @@
 }
 
 :root {
-    --primary-color: #0070f3;
+    --primary-color: ##02a0d5;
+    --primary-dark: #02a0d5;
     --success-color: #00c851;
     --warning-color: #ff8800;
     --danger-color: #ff4444;
@@ -15,12 +16,12 @@
     --text-dark: #1a1a1a;
     --text-gray: #666666;
     --border-color: #e1e4e8;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
-    --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+    --shadow: 0 2px 12px rgba(0,164,206,0.08);
+    --shadow-hover: 0 8px 24px rgba(0,164,206,0.15);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background-color: var(--bg-light);
     color: var(--text-dark);
     line-height: 1.6;
@@ -34,7 +35,7 @@ body {
 
 /* Header */
 header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #0051cc 100%);
+    background: linear-gradient(135deg, #00a4ce 0%, #008fb5 100%);
     color: white;
     padding: 2rem 0;
     box-shadow: var(--shadow);
@@ -51,13 +52,14 @@ header {
 }
 
 .primark-logo {
-    height: 60px;
+    height: 50px;
     width: auto;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
 }
 
 .primark-logo:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 2px 4px rgba(255,255,255,0.3));
 }
 
 .header-text {
@@ -173,14 +175,34 @@ main {
 .kpi-card {
     background: var(--bg-white);
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: var(--shadow);
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
 }
 
 .kpi-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
+    border-color: rgba(0,164,206,0.2);
+}
+
+.kpi-card:hover::before {
+    transform: scaleX(1);
 }
 
 .kpi-card h3 {
@@ -226,9 +248,16 @@ main {
 
 .chart-card {
     background: var(--bg-white);
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 2rem;
+    border-radius: 16px;
     box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.chart-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(0,164,206,0.3);
 }
 
 .chart-card h3 {
@@ -278,8 +307,15 @@ td {
     border-bottom: 1px solid var(--border-color);
 }
 
+tbody tr {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
 tbody tr:hover {
-    background: var(--bg-light);
+    background: linear-gradient(90deg, rgba(0,164,206,0.08) 0%, rgba(0,164,206,0.03) 100%);
+    transform: translateX(4px);
+    box-shadow: -4px 0 0 0 var(--primary-color);
 }
 
 .store-link {
@@ -312,11 +348,17 @@ tbody tr:hover {
 }
 
 .daily-card {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #0051cc 100%);
+    background: linear-gradient(135deg, #00a4ce 0%, #008fb5 100%);
     color: white;
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.daily-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
 }
 
 .daily-card h3 {

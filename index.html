@@ -13,14 +13,9 @@
 <body>
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                   <img src="assets/primark-logo-header.png" alt="Primark" class="primark-logo-main">
-                </div>
-                <div class="header-text">
-                    <h1>Retail Performance Dashboard</h1>
-                    <p class="subtitle">Análisis de KPIs en tiempo real</p>
-                </div>
+            <div class="header-content-centered">
+                <img src="assets/primark-logo-header.svg" alt="Primark" class="primark-logo-main">
+                <p class="subtitle">Retail Performance Dashboard</p>
             </div>
         </div>
     </header>
@@ -28,11 +23,18 @@
     <main class="container">
         <!-- Filter Section -->
         <section class="filter-section">
-            <label for="storeFilter">Filtrar por tienda:</label>
-            <select id="storeFilter">
-                <option value="all">Todas las tiendas</option>
-            </select>
-            <button id="exportBtn" class="btn-secondary">📥 Exportar CSV</button>
+            <div class="filter-left">
+                <label for="storeFilter">Filtrar por tienda:</label>
+                <select id="storeFilter">
+                    <option value="all">Todas las tiendas</option>
+                </select>
+            </div>
+            <div class="filter-right">
+                <button id="importExcelBtn" class="btn-primary">📤 Cargar Excel</button>
+                <button id="exportTemplateBtn" class="btn-secondary">📥 Descargar Plantilla</button>
+                <button id="exportBtn" class="btn-secondary">📊 Exportar CSV</button>
+                <button id="resetDataBtn" class="btn-warning">🔄 Restablecer Datos</button>
+            </div>
         </section>
 
         <!-- KPI Cards -->
@@ -84,13 +86,14 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Retail Performance Dashboard | </p>
+        <p>&copy; 2026 Retail Performance Dashboard | Powered by AI</p>
     </footer>
 
     <script src="js/data.js"></script>
     <script src="js/kpis.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/ai.js"></script>
+    <script src="js/excel.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

@@ -136,6 +136,24 @@ function setupEventListeners() {
         exportBtn.addEventListener('click', exportToCSV);
     }
     
+    // Import Excel button
+    const importExcelBtn = document.getElementById('importExcelBtn');
+    if (importExcelBtn) {
+        importExcelBtn.addEventListener('click', importFromExcel);
+    }
+    
+    // Export Template button
+    const exportTemplateBtn = document.getElementById('exportTemplateBtn');
+    if (exportTemplateBtn) {
+        exportTemplateBtn.addEventListener('click', exportTemplateExcel);
+    }
+    
+    // Reset Data button
+    const resetDataBtn = document.getElementById('resetDataBtn');
+    if (resetDataBtn) {
+        resetDataBtn.addEventListener('click', resetData);
+    }
+    
     // AI Recommendations button
     const aiRecommendBtn = document.getElementById('aiRecommendBtn');
     if (aiRecommendBtn) {

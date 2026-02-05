@@ -158,7 +158,9 @@ function setupEventListeners() {
     const aiRecommendBtn = document.getElementById('aiRecommendBtn');
     if (aiRecommendBtn) {
         aiRecommendBtn.addEventListener('click', () => {
-            generateAIRecommendations(storesData);
+            const currentData = window.storesData || storesData;
+            console.log('AI button clicked, using data:', currentData);
+            generateAIRecommendations(currentData);
         });
     }
 }

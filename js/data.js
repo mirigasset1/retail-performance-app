@@ -2,49 +2,47 @@
 const defaultStoresData = [
   {
     "name": "Murcia",
-    "sales": {"budget": 1600000, "last_year": 1800000},
+    "sales": {"budget": 120000, "last_year": 90000},
     "soh": 180,
     "reusable_bags": 40,
     "tell_primark": 75,
     "store_vs_depot": 35,
-    "growth_up": "N/A",
+    "growth_up": 20,
     "ras": 8,
-    "s_and_d": 0.3
+    "s_and_d": 5
   },
   {
     "name": "Cartagena",
-    "sales": {"budget": 1200000, "last_year": 1300000
-
-    },
+    "sales": {"budget": 120000, "last_year": 90000},
     "soh": 180,
     "reusable_bags": 250,
     "tell_primark": 100,
     "store_vs_depot": 40,
-    "growth_up": "N/A",
+    "growth_up": 25,
     "ras": 10,
-    "s_and_d": 0.18
+    "s_and_d": 7
   },
   {
     "name": "Alicante",
-    "sales": {"budget": 1500000, "last_year": 1100000},
+    "sales": {"budget": 150000, "last_year": 110000},
     "soh": 200,
     "reusable_bags": 60,
     "tell_primark": 80,
     "store_vs_depot": 45,
-    "growth_up": "N/A",
+    "growth_up": 15,
     "ras": 7,
-    "s_and_d": 0.11
+    "s_and_d": 6
   },
   {
     "name": "Castellon",
-    "sales": {"budget": 1000000, "last_year": 850000},
+    "sales": {"budget": 100000, "last_year": 85000},
     "soh": 150,
     "reusable_bags": 50,
     "tell_primark": 70,
     "store_vs_depot": 38,
-    "growth_up": "N/A",
+    "growth_up": 18,
     "ras": 6,
-    "s_and_d": 0.08
+    "s_and_d": 8
   },
   {
     "name": "Valencia Ruzafa",
@@ -53,20 +51,20 @@ const defaultStoresData = [
     "reusable_bags": 70,
     "tell_primark": 85,
     "store_vs_depot": 50,
-    "growth_up": "N/A",
+    "growth_up": 22,
     "ras": 9,
-    "s_and_d": 0.4
+    "s_and_d": 4
   },
   {
     "name": "Valencia Bonaire",
-    "sales": {"budget": 2400000, "last_year": 2100000},
+    "sales": {"budget": 240000, "last_year": 210000},
     "soh": 280,
     "reusable_bags": 65,
     "tell_primark": 88,
     "store_vs_depot": 48,
-    "growth_up": "7.3",
+    "growth_up": 19,
     "ras": 7,
-    "s_and_d": 0.5
+    "s_and_d": 5
   },
   {
     "name": "Palma de Mallorca",
@@ -75,7 +73,7 @@ const defaultStoresData = [
     "reusable_bags": 80,
     "tell_primark": 90,
     "store_vs_depot": 55,
-    "growth_up": "N/A",
+    "growth_up": 25,
     "ras": 8,
     "s_and_d": 6
   },
@@ -86,9 +84,9 @@ const defaultStoresData = [
     "reusable_bags": 75,
     "tell_primark": 92,
     "store_vs_depot": 60,
-    "growth_up": "N/A",
+    "growth_up": 28,
     "ras": 9,
-    "s_and_d": 0.7
+    "s_and_d": 7
   },
   {
     "name": "Orihuela",
@@ -97,25 +95,28 @@ const defaultStoresData = [
     "reusable_bags": 45,
     "tell_primark": 65,
     "store_vs_depot": 42,
-    "growth_up": 6,
+    "growth_up": 17,
     "ras": 6,
-    "s_and_d": 0.6
+    "s_and_d": 6
   },
   {
     "name": "Lorca",
-    "sales": {"budget": 950000, "last_year": 1500000},
+    "sales": {"budget": 17000, "last_year": 15000},
     "soh": 90,
     "reusable_bags": 250,
     "tell_primark": 60,
     "store_vs_depot": 30,
     "growth_up": 10,
     "ras": 5,
-    "s_and_d": 0.2
+    "s_and_d": 4
   }
 ];
 
 // Load data from localStorage if available, otherwise use default
 let storesData = loadStoresData();
+
+// Make storesData globally accessible
+window.storesData = storesData;
 
 /**
  * Load stores data from localStorage or default
@@ -155,6 +156,7 @@ function saveStoresData(data) {
  */
 function updateStoresData(newData) {
     storesData = newData;
+    window.storesData = newData; // Update global reference
     saveStoresData(newData);
 }
 
@@ -163,6 +165,7 @@ function updateStoresData(newData) {
  */
 function resetToDefaultData() {
     storesData = [...defaultStoresData];
+    window.storesData = storesData; // Update global reference
     localStorage.removeItem('primark_stores_data');
     console.log('🔄 Datos restablecidos a valores por defecto');
 }
